@@ -1,7 +1,10 @@
 package by.dendritshipikov.books;
 
+import by.dendritshipikov.books.jsonparser.JsonParser;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("it works");
+        JsonParser jsonParser = new JsonParser(" \"abcd\\ne\\u0020fg\" ");
+        System.out.println(jsonParser.parseString());
     }
 }
