@@ -95,12 +95,44 @@ public class JsonParser {
         }
     }
 
+    private String parseNumber() {
+        ignoreSpace();
+        StringBuilder builder = new StringBuilder();
+        if (peekChar() == '-') builder.append(getChar());
+        if (peekChar() == '0') {
+            builder.append(getChar());
+        }
+        else if (Character.isDigit(peekChar())) {
+            while (Character.isDigit(peekChar())) builder.append(getChar());
+        } else {
+            throw parserError("unexpected symbol '" + peekChar() + "' in number");
+        }
+        if (peekChar() == '.') {
+            builder.append(getChar());
+            while (Character.isDigit(peekChar())) builder.append(getChar());
+        }
+        if (peekChar() == 'e' || peekChar() == 'E') {
+            builder.append(getChar());
+            if (peekChar() == '+' || peekChar() == '-') builder.append(getChar());
+            if (!Character.isDigit(peekChar())) throw parserError("wrong exponential format");
+            while (Character.isDigit(peekChar())) builder.append(getChar());
+        }
+        return builder.toString();
+    }
+
     public int parseInteger() {
-        return 0;
+        String number = parseNumber();
+        try {
+            return Integer.valueOf(number);
+        } catch (NumberFormatException e) {
+            throw parserError("number is not integer");
+        }
+
     }
 
     public double parseDouble() {
-        return 0.0;
+        String number = parseNumber();
+        return Double.valueOf(number);
     }
 
     public List<Object> parseList() {
