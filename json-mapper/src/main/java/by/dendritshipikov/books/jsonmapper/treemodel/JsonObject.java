@@ -14,6 +14,10 @@ public class JsonObject extends JsonElement {
 
     Map<JsonString, JsonElement> members = new HashMap<>();
 
+    public JsonElement put(JsonString key, JsonElement value) {
+        return members.put(key, value);
+    }
+
     @Override
     public void parse(JsonParser parser) {
         members.clear();
@@ -66,5 +70,19 @@ public class JsonObject extends JsonElement {
             }
         }
         throw new JsonParserException("converting error: type must be class");
+    }
+
+    @Override
+    public void write(StringBuilder builder) {
+        builder.append('{');
+        boolean comma = false;
+        for (Map.Entry<JsonString, JsonElement> pair : members.entrySet()) {
+            if (comma) builder.append(',');
+            comma = true;
+            pair.getKey().write(builder);
+            builder.append(':');
+            pair.getValue().write(builder);
+        }
+        builder.append('}');
     }
 }

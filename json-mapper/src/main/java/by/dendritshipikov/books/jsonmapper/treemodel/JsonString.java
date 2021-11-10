@@ -84,6 +84,13 @@ public class JsonString extends JsonElement {
     }
 
     @Override
+    public void write(StringBuilder builder) {
+        builder.append('"');
+        builder.append(string);
+        builder.append('"');
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof JsonString) {
             JsonString other = (JsonString)obj;

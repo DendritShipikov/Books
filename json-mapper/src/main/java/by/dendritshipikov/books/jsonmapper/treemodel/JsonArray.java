@@ -11,6 +11,10 @@ public class JsonArray extends JsonElement {
 
     private List<JsonElement> elements = new ArrayList<>();
 
+    public boolean add(JsonElement element) {
+        return elements.add(element);
+    }
+
     @Override
     public Object convert(Type type) {
         if (type instanceof Class){
@@ -31,7 +35,7 @@ public class JsonArray extends JsonElement {
             if (List.class.isAssignableFrom(rawType)) {
                 List<Object> list;
                 if (rawType == List.class) {
-                    list = new ArrayList<Object>();
+                    list = new ArrayList<>();
                 }
                 else {
                     try {
@@ -74,5 +78,17 @@ public class JsonArray extends JsonElement {
             }
             parser.getChar();
         }
+    }
+
+    @Override
+    public void write(StringBuilder builder) {
+        builder.append('[');
+        boolean comma = false;
+        for (JsonElement element : elements) {
+            if (comma) builder.append(',');
+            comma = true;
+            element.write(builder);
+        }
+        builder.append(']');
     }
 }

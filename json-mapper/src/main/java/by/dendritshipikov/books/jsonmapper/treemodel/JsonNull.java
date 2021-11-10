@@ -19,4 +19,9 @@ public class JsonNull extends JsonElement {
     public Object convert(Type type) {
         return null;
     }
+
+    @Override
+    public void write(StringBuilder builder) {
+        builder.append("null");
+    }
 }

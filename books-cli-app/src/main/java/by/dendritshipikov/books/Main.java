@@ -1,30 +1,29 @@
 package by.dendritshipikov.books;
 
-import by.dendritshipikov.books.jsonmapper.JsonParser;
+import by.dendritshipikov.books.jsonmapper.JsonMapper;
 import by.dendritshipikov.books.jsonmapper.TypeWrapper;
-import by.dendritshipikov.books.jsonmapper.treemodel.JsonElement;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        String source = "{ \"i\" : 12, \"name\" : \"Dendrit\", \"strings\" : null, \"integers\" : [1,2 ], \"b\" : true, \"integer\" : null  }";
-        JsonParser parser = new JsonParser(source);
-        JsonElement element = parser.parseElement();
-        A a = (A) element.convert(A.class);
-        System.out.println(a);
+        A a = new A();
+        a.a = new A();
+        List<A> list = new ArrayList<>();
+        list.add(null);
+        list.add(a);
+        String source = JsonMapper.toJson(list);//"{ \"i\" : 0, \"name\" : \"Dendrit\", \"strings\" : null, \"integers\" : [1,2 ], \"b\" : true, \"integer\" : null  }";
+        System.out.println(source);
+        list = JsonMapper.convert(source, new TypeWrapper<List<A>>(){}.getType());
+        System.out.println(list);
     }
 }
 
 class A {
+    A a;
     private int i;
-    Integer integer;
-    String name;
-    List<String> strings;
-    ArrayList<Integer> integers;
+    List<String> strings = new ArrayList<>();
     boolean b;
 
     public A() {}
@@ -32,11 +31,9 @@ class A {
     @Override
     public String toString() {
         return "A{" +
-                "i=" + i +
-                ", integer=" + integer +
-                ", name='" + name + '\'' +
+                "a=" + a +
+                ", i=" + i +
                 ", strings=" + strings +
-                ", integers=" + integers +
                 ", b=" + b +
                 '}';
     }

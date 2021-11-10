@@ -7,7 +7,14 @@ import java.lang.reflect.Type;
 import java.util.Objects;
 
 public class JsonBool extends JsonElement {
+
     private boolean value;
+
+    public JsonBool() {}
+
+    public JsonBool(boolean value) {
+        this.value = value;
+    }
 
     @Override
     public Object convert(Type type) {
@@ -24,6 +31,11 @@ public class JsonBool extends JsonElement {
         if (stringRep.equals("true")) value = true;
         else if (stringRep.equals("false")) value = false;
         else throw new JsonParserException("parsing error");
+    }
+
+    @Override
+    public void write(StringBuilder builder) {
+        builder.append(Boolean.toString(value));
     }
 
     @Override
