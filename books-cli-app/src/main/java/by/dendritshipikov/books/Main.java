@@ -1,18 +1,21 @@
 package by.dendritshipikov.books;
 
-import by.dendritshipikov.books.jsonparser.JsonParser;
-import by.dendritshipikov.books.jsonparser.TypeWrapper;
-import by.dendritshipikov.books.jsonparser.treemodel.JsonElement;
+import by.dendritshipikov.books.jsonmapper.JsonParser;
+import by.dendritshipikov.books.jsonmapper.TypeWrapper;
+import by.dendritshipikov.books.jsonmapper.treemodel.JsonElement;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        String source = " [{\"b\" : false, \"integers\" : null, \"strings\":[\"a\", \"b\"]  , \"i\":1,\"integer\":2, \"name\": \"lox\"}, null]";
+        String source = "{ \"i\" : 12, \"name\" : \"Dendrit\", \"strings\" : null, \"integers\" : [1,2 ], \"b\" : true, \"integer\" : null  }";
         JsonParser parser = new JsonParser(source);
         JsonElement element = parser.parseElement();
-        System.out.println(element.convert(new TypeWrapper<List<A>>(){}.getType()));
+        A a = (A) element.convert(A.class);
+        System.out.println(a);
     }
 }
 

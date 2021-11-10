@@ -1,6 +1,6 @@
-package by.dendritshipikov.books.jsonparser;
+package by.dendritshipikov.books.jsonmapper;
 
-import by.dendritshipikov.books.jsonparser.treemodel.*;
+import by.dendritshipikov.books.jsonmapper.treemodel.*;
 
 public class JsonParser {
 

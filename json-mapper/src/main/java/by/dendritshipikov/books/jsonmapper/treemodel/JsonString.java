@@ -1,7 +1,7 @@
-package by.dendritshipikov.books.jsonparser.treemodel;
+package by.dendritshipikov.books.jsonmapper.treemodel;
 
-import by.dendritshipikov.books.jsonparser.JsonParser;
-import by.dendritshipikov.books.jsonparser.JsonParserException;
+import by.dendritshipikov.books.jsonmapper.JsonParser;
+import by.dendritshipikov.books.jsonmapper.JsonParserException;
 
 import java.lang.reflect.Type;
 
@@ -66,6 +66,8 @@ public class JsonString extends JsonElement {
                             }
                             builder.append((char)code);
                             break;
+                        default:
+                            throw new JsonParserException("Parsing error: wrong escape sequence format");
                     }
                     parser.getChar();
                     break;

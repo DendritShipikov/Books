@@ -1,7 +1,7 @@
-package by.dendritshipikov.books.jsonparser.treemodel;
+package by.dendritshipikov.books.jsonmapper.treemodel;
 
-import by.dendritshipikov.books.jsonparser.JsonParser;
-import by.dendritshipikov.books.jsonparser.JsonParserException;
+import by.dendritshipikov.books.jsonmapper.JsonParser;
+import by.dendritshipikov.books.jsonmapper.JsonParserException;
 
 import java.lang.reflect.*;
 import java.util.ArrayList;

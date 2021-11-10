@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <groupId>by.dendritshipikov</groupId>
-    <artifactId>json-parser</artifactId>
+    <artifactId>json-mapper</artifactId>
     <version>1.0-SNAPSHOT</version>
 
 </project>

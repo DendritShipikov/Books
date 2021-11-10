@@ -15,7 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>by.dendritshipikov</groupId>
-            <artifactId>json-parser</artifactId>
+            <artifactId>json-mapper</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

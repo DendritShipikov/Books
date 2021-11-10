@@ -1,4 +1,4 @@
-package by.dendritshipikov.books.jsonparser;
+package by.dendritshipikov.books.jsonmapper;
 
 public class JsonParserException extends RuntimeException {
     public JsonParserException(String message) {

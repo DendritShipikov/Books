@@ -1,4 +1,4 @@
-package by.dendritshipikov.books.jsonparser;
+package by.dendritshipikov.books.jsonmapper;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

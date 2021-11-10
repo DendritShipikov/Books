@@ -1,9 +1,10 @@
-package by.dendritshipikov.books.jsonparser.treemodel;
+package by.dendritshipikov.books.jsonmapper.treemodel;
 
-import by.dendritshipikov.books.jsonparser.JsonParser;
-import by.dendritshipikov.books.jsonparser.JsonParserException;
+import by.dendritshipikov.books.jsonmapper.JsonParser;
+import by.dendritshipikov.books.jsonmapper.JsonParserException;
 
 import java.lang.reflect.Type;
+import java.util.Objects;
 
 public class JsonBool extends JsonElement {
     private boolean value;
@@ -23,5 +24,19 @@ public class JsonBool extends JsonElement {
         if (stringRep.equals("true")) value = true;
         else if (stringRep.equals("false")) value = false;
         else throw new JsonParserException("parsing error");
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof JsonBool) {
+            JsonBool other = (JsonBool) obj;
+            return other.value == this.value;
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Boolean.hashCode(value);
     }
 }

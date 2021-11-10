@@ -1,6 +1,6 @@
-package by.dendritshipikov.books.jsonparser.treemodel;
+package by.dendritshipikov.books.jsonmapper.treemodel;
 
-import by.dendritshipikov.books.jsonparser.JsonParser;
+import by.dendritshipikov.books.jsonmapper.JsonParser;
 
 import java.lang.reflect.Type;
 

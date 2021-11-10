@@ -15,7 +15,7 @@
     </properties>
 
     <modules>
-        <module>json-parser</module>
+        <module>json-mapper</module>
         <module>books-cli-app</module>
     </modules>
 
