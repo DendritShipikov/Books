@@ -4,37 +4,35 @@ import by.dendritshipikov.books.jsonmapper.JsonMapper;
 import by.dendritshipikov.books.jsonmapper.TypeWrapper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         A a = new A();
-        a.a = new A();
-        List<A> list = new ArrayList<>();
-        list.add(null);
-        list.add(a);
-        String source = JsonMapper.toJson(list);//"{ \"i\" : 0, \"name\" : \"Dendrit\", \"strings\" : null, \"integers\" : [1,2 ], \"b\" : true, \"integer\" : null  }";
-        System.out.println(source);
-        list = JsonMapper.convert(source, new TypeWrapper<List<A>>(){}.getType());
-        System.out.println(list);
+        String json = JsonMapper.toJson(a);
+        System.out.println(json);
+        //List<A> aa = JsonMapper.fromJson("[{\"i\": 0, \"author\":[]}, null]", new TypeWrapper<List<A>>(){}.getType());
+        A aa = JsonMapper.fromJson(json, A.class);
+        System.out.println(aa);
     }
 }
 
-class A {
-    A a;
-    private int i;
-    List<String> strings = new ArrayList<>();
+class B {
     boolean b;
+}
+
+class A extends B {
+    int i;
+    String[] author = {"Chehov", "Gus"};
 
     public A() {}
 
     @Override
     public String toString() {
         return "A{" +
-                "a=" + a +
-                ", i=" + i +
-                ", strings=" + strings +
-                ", b=" + b +
+                "i=" + i +
+                ", author=" + Arrays.toString(author) +
                 '}';
     }
 }
