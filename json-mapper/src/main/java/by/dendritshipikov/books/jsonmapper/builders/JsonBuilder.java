@@ -2,12 +2,12 @@ package by.dendritshipikov.books.jsonmapper.builders;
 
 import by.dendritshipikov.books.jsonmapper.JsonReader;
 
-abstract public class JsonBuilder {
+public abstract class JsonBuilder {
 
-    abstract public void reset();
+    public abstract void reset();
 
-    abstract public Object build(JsonReader reader);
+    public abstract Object build(JsonReader reader);
 
-    abstract public Object getResult();
+    public abstract Object getResult();
 
 }

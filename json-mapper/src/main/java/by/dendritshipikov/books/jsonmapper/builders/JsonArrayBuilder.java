@@ -2,14 +2,14 @@ package by.dendritshipikov.books.jsonmapper.builders;
 
 import by.dendritshipikov.books.jsonmapper.JsonReader;
 
-abstract public class JsonArrayBuilder extends JsonBuilder {
+public abstract class JsonArrayBuilder extends JsonBuilder {
 
-    abstract public void add(Object e);
+    public abstract void add(Object e);
 
-    abstract public JsonBuilder getComponentBuilder();
+    public abstract JsonBuilder getComponentBuilder();
 
     @Override
-    final public Object build(JsonReader reader) {
+    public final Object build(JsonReader reader) {
         return reader.readArray(this);
     }
 

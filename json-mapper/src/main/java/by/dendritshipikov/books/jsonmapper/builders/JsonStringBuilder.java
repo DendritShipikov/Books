@@ -21,7 +21,7 @@ public class JsonStringBuilder extends JsonBuilder {
     }
 
     @Override
-    final public Object build(JsonReader reader) {
+    public final Object build(JsonReader reader) {
         return reader.readString(this);
     }
 }
