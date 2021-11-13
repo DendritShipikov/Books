@@ -42,11 +42,13 @@ public class JsonReader {
     }
 
     private void matchChar(char ch) {
+        ignoreSpace();
         if (peekChar() != ch) throw new JsonException("Parsing error: '" + ch + "' expected");
         getChar();
     }
 
     private boolean checkChar(char ch) {
+        ignoreSpace();
         if (peekChar() != ch) return false;
         getChar();
         return true;
@@ -71,10 +73,12 @@ public class JsonReader {
         arrayBuilder.reset();
         JsonBuilder componentBuilder = arrayBuilder.getComponentBuilder();
         matchChar('[');
-        while (peekChar() != ']') {
-            Object e = componentBuilder.build(this);
-            arrayBuilder.add(e);
-            if (!checkChar(',')) break;
+        ignoreSpace();
+        if (peekChar() != ']') {
+            do {
+                Object e = componentBuilder.build(this);
+                arrayBuilder.add(e);
+            } while (checkChar(','));
         }
         matchChar(']');
         return arrayBuilder.getResult();
@@ -85,15 +89,17 @@ public class JsonReader {
         JsonBuilder stringBuilder = JsonMapper.getBuilder(String.class);
         objectBuilder.reset();
         matchChar('{');
-        while (peekChar() != '}') {
-            stringBuilder.reset();
-            String name = (String) stringBuilder.build(this);
-            if (objectBuilder.containsField(name)) throw new JsonException("Multiple keys in object");
-            matchChar(':');
-            JsonBuilder fieldBuilder = objectBuilder.getFieldBuilder(name);
-            Object value = fieldBuilder.build(this);
-            objectBuilder.put(name, value);
-            if (!checkChar(',')) break;
+        ignoreSpace();
+        if (peekChar() != '}') {
+            do {
+                stringBuilder.reset();
+                String name = (String) stringBuilder.build(this);
+                if (objectBuilder.containsField(name)) throw new JsonException("Multiple keys in object");
+                matchChar(':');
+                JsonBuilder fieldBuilder = objectBuilder.getFieldBuilder(name);
+                Object value = fieldBuilder.build(this);
+                objectBuilder.put(name, value);
+            } while (checkChar(','));
         }
         matchChar('}');
         return objectBuilder.getResult();
@@ -162,7 +168,6 @@ public class JsonReader {
 
     public Object readNumber(JsonNumberBuilder numberBuilder) {
         if (checkNull()) return null;
-        this.ignoreSpace();
         StringBuilder builder = new StringBuilder();
         if (this.peekChar() == '-') builder.append(this.getChar());
         if (this.peekChar() == '0') {
@@ -189,7 +194,6 @@ public class JsonReader {
 
     public Object readBool(JsonBoolBuilder boolBuilder) {
         if (checkNull()) return null;
-        ignoreSpace();
         String rep = readKeyword();
         boolean value;
         if (rep.equals("true")) value = true;
