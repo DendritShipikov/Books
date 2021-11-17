@@ -19,7 +19,14 @@ public class Application {
     }
 
     public static void main(String[] args) {
-        File folder = new File("info");
+        String folderName = "info";
+        if (args.length > 1) {
+            System.out.println("Wrong command line params.");
+            return;
+        } else if (args.length == 1) {
+            folderName = args[0];
+        }
+        File folder = new File(folderName);
         if (!folder.exists()) {
             if (!folder.mkdir()) {
                 System.out.println("Error: directory can not be created");
