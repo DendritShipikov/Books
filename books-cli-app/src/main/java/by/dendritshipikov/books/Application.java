@@ -54,12 +54,12 @@ public class Application {
         book.setPages(inputPages());
         System.out.println("Do you want to add description? (yes/no)");
         while (true) {
-            String yesno = scanner.nextLine();
-            if (yesno.equals("yes")) {
+            String choice = scanner.nextLine();
+            if (choice.equals("yes")) {
                 System.out.println("Input description:");
                 book.setDescription(scanner.nextLine());
                 break;
-            } else if (yesno.equals("no")) {
+            } else if (choice.equals("no")) {
                 break;
             } else {
                 System.out.println("Please, write 'yes' or 'no'");
@@ -77,11 +77,10 @@ public class Application {
             System.out.println("No books found.");
             return;
         }
-        int i = 1;
+        int i = 0;
         for (Book book : books) {
-            System.out.println(i);
+            System.out.println(++i);
             System.out.println(book.toString("\t"));
-            ++i;
         }
     }
 
@@ -94,20 +93,26 @@ public class Application {
         }
         Book book = bookService.getBookByTitle(title);
         System.out.println("What do you want to edit?\n1. Authors\n2. Number of pages\n3. Description");
-        while (true) {
+        boolean notChosen = true;
+        while (notChosen) {
             String choice = scanner.nextLine();
-            if (choice.equals("1")) {
-                book.setAuthors(inputAuthors());
-                break;
-            } else if (choice.equals("2")) {
-                book.setPages(inputPages());
-                break;
-            } else if (choice.equals("3")) {
-                System.out.println("Input description:");
-                book.setDescription(scanner.nextLine());
-                break;
-            } else {
-                System.out.println("Wrong input. Please, write '1', '2' or '3'");
+            switch (choice) {
+                case "1":
+                    book.setAuthors(inputAuthors());
+                    notChosen = false;
+                    break;
+                case "2":
+                    book.setPages(inputPages());
+                    notChosen = false;
+                    break;
+                case "3":
+                    System.out.println("Input description:");
+                    book.setDescription(scanner.nextLine());
+                    notChosen = false;
+                    break;
+                default:
+                    System.out.println("Wrong input. Please, write '1', '2' or '3'");
+                    break;
             }
         }
         bookService.editBook(book);
@@ -149,7 +154,7 @@ public class Application {
     public void mainLoop() throws IOException {
         scanner = new Scanner(System.in);
         loop: while (true) {
-            System.out.println("What do you want?:");
+            System.out.println("What do you want? (add, find, edit, delete, exit, help):");
             String command = scanner.nextLine();
             switch (command) {
                 case "add":

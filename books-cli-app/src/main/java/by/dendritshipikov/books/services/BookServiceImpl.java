@@ -49,7 +49,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> findBook(String query) throws IOException {
         String[] fileTitles = folder.list();
-        String regex = "^" + query + ".*$";
+        String regex = "^.*" + query + ".*$";
         List<Book> books = new ArrayList<>();
         for (String fileTitle : fileTitles) {
             if (Pattern.matches(regex, fileTitle)) {
