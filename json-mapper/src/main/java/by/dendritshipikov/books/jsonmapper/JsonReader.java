@@ -146,12 +146,12 @@ public class JsonReader {
                                 code = Integer.parseUnsignedInt(hex, 16);
                             }
                             catch (NumberFormatException e) {
-                                throw new JsonParserException("Parsing error: wrong escape sequence format");
+                                throw new JsonException("Parsing error: wrong escape sequence format");
                             }
                             stringBuilder.append((char)code);
                             break;
                         default:
-                            throw new JsonParserException("Parsing error: wrong escape sequence format");
+                            throw new JsonException("Parsing error: wrong escape sequence format");
                     }
                     this.getChar();
                     break;
@@ -175,7 +175,7 @@ public class JsonReader {
         } else if (Character.isDigit(this.peekChar())) {
             while (Character.isDigit(this.peekChar())) builder.append(this.getChar());
         } else {
-            throw new JsonParserException("Parsing error: wrong number format");
+            throw new JsonException("Parsing error: wrong number format");
         }
         if (this.peekChar() == '.') {
             builder.append(this.getChar());
@@ -184,7 +184,7 @@ public class JsonReader {
         if (this.peekChar() == 'e' || this.peekChar() == 'E') {
             builder.append(this.getChar());
             if (this.peekChar() == '+' || this.peekChar() == '-') builder.append(this.getChar());
-            if (!Character.isDigit(this.peekChar())) throw new JsonParserException("Parsing error: wrong number format");
+            if (!Character.isDigit(this.peekChar())) throw new JsonException("Parsing error: wrong number format");
             while (Character.isDigit(this.peekChar())) builder.append(this.getChar());
         }
         String rep = builder.toString();
